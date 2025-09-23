@@ -7,7 +7,6 @@ os.environ["TRANSFORMERS_CACHE"] = "../Checkpoint/"
 
 import torch
 from transformers import AutoModel, AutoTokenizer
-from datasets import load_dataset
 
 import json 
 import argparse

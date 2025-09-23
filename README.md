@@ -1,6 +1,6 @@
 # SparseD: Sparse Attention for Diffusion Language Models
 <div align="center">
-  <img src="assets/SparseD.jpg" width="100%" ></img>
+  <img src="assets/SparseD.jpg" width="75%" ></img>
   <br>
   <em>
       The overview of SparseD
@@ -53,4 +53,6 @@ Arguments for `llada_generate.py`:
 - `--prompt`: Choose prompt for simple test, including "short_context", "4k" and "8k" length versions
 
 ### Note 
-Since our sparse attention is implemented by FlexAttention, we recommend conducting a warm-up inference first, as subsequent inferences will perform better in terms of speed.
+- Since our sparse attention is implemented by FlexAttention, we recommend conducting a warm-up inference first, as subsequent inferences will perform better in terms of speed.
+
+- To better demonstrate the acceleration achieved by SparseD, we recommend evaluating it with long-context prompts, such as those with lengths of 16k, 32k, and 64k. We only provide short context, 4k, and 8k version in the repository for simple evaluation.
