@@ -22,21 +22,25 @@ def set_random_seed(seed):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--model_path", type=str, default="Dream-org/Dream-v0-Instruct-7B")
+    parser.add_argument("--model_path", type=str, default="GSAI-ML/LLaDA-1.5")
     parser.add_argument("--seq_len", type=int, default=128)
     parser.add_argument("--steps", type=int, default=128)
-    parser.add_argument("--sampling-alg", type=str, default='maskgit_plus')
+    parser.add_argument("--block_length", type=int, default=32)
+    parser.add_argument("--sampling-alg", type=str, default='low_confidence')
+
     parser.add_argument("--origin", action="store_true")
+
     parser.add_argument("--skip", type=float, default=0.2)
     parser.add_argument("--select", type=float, default=0.3)
     parser.add_argument("--block_size", type=int, default=128)
+    
     parser.add_argument("--prompt", type=str, default="short_context")
     args = parser.parse_args()
 
     model_path = args.model_path
 
-    from models import DreamModel
-    model = DreamModel.from_pretrained(model_path, torch_dtype=torch.bfloat16, trust_remote_code=True)
+    from models import LLaDAModelLM, generate
+    model = LLaDAModelLM.from_pretrained(model_path, torch_dtype=torch.bfloat16, trust_remote_code=True)
     tokenizer = AutoTokenizer.from_pretrained(model_path, trust_remote_code=True)
     model = model.to("cuda").eval()
 
@@ -50,7 +54,6 @@ if __name__ == "__main__":
     )
     prompt_ids = tokenizer(prompts, return_tensors="pt", padding=True, padding_side="left")
     input_ids = prompt_ids.input_ids.to(device="cuda")
-    attention_mask = prompt_ids.attention_mask.to(device="cuda")
     
     if args.origin:
         print("Use Original Model!")
@@ -61,25 +64,18 @@ if __name__ == "__main__":
 
     import time
     start_time = time.time()
-    output = model.diffusion_generate(
-        input_ids,
-        attention_mask=attention_mask,
-        max_new_tokens=args.seq_len,
-        output_history=False,
-        return_dict_in_generate=True,
-        steps=args.steps,
-        temperature=0.05,
-        top_p=0.95,
-        alg=args.sampling_alg,
-        alg_temp=0.,
+    output = generate(
+        model, input_ids, 
+        steps=args.steps, 
+        gen_length=args.seq_len, 
+        block_length=args.block_length, 
+        temperature=0, 
+        remasking=args.sampling_alg, 
         SparseD_param=SparseD_param
     )
     end_time = time.time()
 
-    generations = [
-        tokenizer.decode(g[len(p) :].tolist())
-        for p, g in zip(input_ids, output.sequences)
-    ]
+    answer = tokenizer.batch_decode(output[:, input_ids.shape[1]:], skip_special_tokens=True)[0]
     print(f"----Question of length {args.prompt}: {messages[0]['content']}")
-    print(generations[0].split(tokenizer.eos_token)[0])
+    print(answer)
     print(f"Running Time: {end_time - start_time:.4f}")
