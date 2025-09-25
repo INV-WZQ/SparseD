@@ -683,9 +683,8 @@ class LLaDABlock(nn.Module):
     ) -> Tuple[torch.Tensor, Optional[Tuple[torch.Tensor, torch.Tensor]]]:
         
         if SparseD_param is not None:
-            now_step, new_generation = SparseD_param['now_step'], SparseD_param['new_generation']
+            now_step, whole_steps, new_generation = SparseD_param['now_step'], SparseD_param['whole_steps'], SparseD_param['new_generation']
             skip, select, block_size = SparseD_param['skip'], SparseD_param['select'], SparseD_param['block_size']
-
 
         B, T, C = q.size()  # batch size, sequence length, d_model
         dtype = k.dtype
@@ -742,7 +741,7 @@ class LLaDABlock(nn.Module):
                 self.last = None
                 self.block_mask = None
             
-            end_time = int(new_generation*skip)+1
+            end_time = int(whole_steps*skip)+1
             if now_step <= end_time:
                 if now_step==end_time:
                     query_states, key_states, value_states = q, k, v

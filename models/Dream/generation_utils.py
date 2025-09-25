@@ -412,7 +412,7 @@ class DreamGenerationMixin:
         for i in range(steps):
             mask_index = (x == mask_token_id)
             if SparseD_param is not None:
-                SparseD_param['now_step'], SparseD_param['new_generation'] = i, steps
+                SparseD_param['now_step'] = i
             logits = self(x, attention_mask, tok_idx, SparseD_param=SparseD_param).logits
             logits = torch.cat([logits[:,:1], logits[:, :-1]], dim=1)
 

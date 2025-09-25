@@ -25,10 +25,13 @@ if __name__ == "__main__":
     parser.add_argument("--seq_len", type=int, default=128)
     parser.add_argument("--steps", type=int, default=128)
     parser.add_argument("--sampling-alg", type=str, default='maskgit_plus')
+
     parser.add_argument("--origin", action="store_true")
+
     parser.add_argument("--skip", type=float, default=0.2)
     parser.add_argument("--select", type=float, default=0.3)
     parser.add_argument("--block_size", type=int, default=128)
+    
     parser.add_argument("--prompt", type=str, default="short_context")
     args = parser.parse_args()
 
@@ -56,7 +59,13 @@ if __name__ == "__main__":
         SparseD_param = None
     else:
         print("Use SparseD version!")
-        SparseD_param = {'skip': args.skip, 'select': args.select, 'block_size': args.block_size}
+        SparseD_param = {
+            'skip': args.skip, 
+            'select': args.select, 
+            'block_size': args.block_size,
+            'new_generation': args.seq_len,
+            'whole_steps': args.steps
+        }
 
     import time
     start_time = time.time()

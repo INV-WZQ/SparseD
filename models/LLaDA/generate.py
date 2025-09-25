@@ -81,7 +81,6 @@ def generate(model, prompt, steps=128, gen_length=128, block_length=128, tempera
             else:
                 if SparseD_param is not None:
                     SparseD_param["now_step"] = i + num_block * steps
-                    SparseD_param["new_generation"] = steps * num_blocks
                     logits = model(x, SparseD_param=SparseD_param).logits
                 else:
                     logits = model(x).logits

@@ -59,7 +59,13 @@ if __name__ == "__main__":
         SparseD_param = None
     else:
         print("Use SparseD version!")
-        SparseD_param = {'skip': args.skip, 'select': args.select, 'block_size': args.block_size}
+        SparseD_param = {
+            'skip': args.skip, 
+            'select': args.select, 
+            'block_size': args.block_size,
+            'new_generation': args.seq_len,
+            'whole_steps': args.steps
+        }
 
     import time
     start_time = time.time()
