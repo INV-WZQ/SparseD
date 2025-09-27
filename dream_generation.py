@@ -1,10 +1,3 @@
-import os
-os.environ["HF_ENDPOINT"] = "https://hf-mirror.com"
-os.environ["HF_DATASETS_CACHE"] = "../Checkpoint/"
-os.environ["HF_HOME"] = "../Checkpoint/"
-os.environ["HUGGINGFACE_HUB_CACHE"] = "../Checkpoint/"
-os.environ["TRANSFORMERS_CACHE"] = "../Checkpoint/"
-
 import torch
 from transformers import AutoModel, AutoTokenizer
 
