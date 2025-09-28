@@ -8,17 +8,21 @@
 </div>
 <br>
 
-## 📚 TL;DR (Too Long; Didn't Read)
-**SparseD** is a novel sparse attention method for diffusion language models (DLMs). At a high level, SparseD is able to efficiently handle the unique attention patterns of DLMs without degrading generation quality. Specifically, SparseD re-computes sparse attention patterns once for each head and reuses them across diffusion steps. Additionally, SparseD applies full attention in the early steps and skips sparse attention to preserve generation quality.
+> **SparseD: Sparse Attention for Diffusion Language Models**   🥯[[Arxiv]]()   
+> Zeqing Wang, [Gongfan Fang](https://fangggf.github.io/), [Xinyin Ma](https://horseee.github.io/), [Xingyi Yang](https://adamdad.github.io/), [Xinchao Wang](https://sites.google.com/site/sitexinchaowang/)   
+> [xML Lab](https://sites.google.com/view/xml-nus), National University of Singapore
 
-## 🛠️ Setup
+## TL;DR (Too Long; Didn't Read)
+**SparseD** is an innovative sparse attention method for diffusion language models (DLMs), delivering near **lossless acceleration** in performance.
+
+## Setup
 ```bash
 conda create -n SparseD python=3.10
 conda activate SparseD
 pip install -r requirements.txt
 ```
 
-## 🚀 Usage
+## Usage
 
 ```bash
 # For Dream Model
@@ -39,11 +43,22 @@ Arguments:
 - `--skip`, `--select`, `--block_size`: The inference configuration for SparseD. `skip` denotes the ratio of full attention applied to the earlier steps across all denoising steps, `select` denotes the selection ratio for sparse attention, and `block_size` specifies the block size used when selecting important query-key pairs.
 - `--prompt`: Choose prompt for simple test, including `["short_context", "4k", "8k", "16k", "32k", "64k"]` length versions.
 
-## ☀️ Note 
+## Results
+### 1. Accuracy 
+<div align="center">
+<img width="75%" alt="image" src="assets/acc_result.png">
+</div>
+
+### 2. Latency
+<div align="center">
+<img width="75%" alt="image" src="assets/latency_result.png">
+</div>
+
+## Note 
 - Since our sparse attention is implemented by FlexAttention, we recommend conducting a warm-up inference first, as subsequent inferences will perform better in terms of speed.
 
 - To better demonstrate the acceleration achieved by SparseD, we recommend evaluating it with long-context prompts, such as those with lengths of 16k, 32k, and 64k. We also provide short context for simple evaluation.
 
 
-## 🤗 Acknowledgments
+## Acknowledgments
 Our sparse attention is accelerated by [FlexAttention](https://arxiv.org/abs/2412.05496). We extend our gratitude to the community for their valuable contributions!
