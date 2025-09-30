@@ -1,12 +1,12 @@
 # SparseD: Sparse Attention for Diffusion Language Models
 
+![demo](https://github.com/user-attachments/assets/4752b94c-16c5-43fc-aa80-a3a2164f363e)
 
-https://github.com/user-attachments/assets/64a07881-8e55-460f-8f8f-e80f11ac6fee
 
-
-> **SparseD: Sparse Attention for Diffusion Language Models**   🥯[[Arxiv]]()   
-> [Zeqing Wang](https://github.com/INV-WZQ), [Gongfan Fang](https://fangggf.github.io/), [Xinyin Ma](https://horseee.github.io/), [Xingyi Yang](https://adamdad.github.io/), [Xinchao Wang](https://sites.google.com/site/sitexinchaowang/)   
-> [xML Lab](https://sites.google.com/view/xml-nus), National University of Singapore
+> **SparseD: Sparse Attention for Diffusion Language Models**   🥯[[Arxiv]](https://arxiv.org/abs/2509.24014)   
+> [Zeqing Wang](https://github.com/INV-WZQ)<sup>1</sup>, [Gongfan Fang](https://fangggf.github.io/)<sup>1</sup>, [Xinyin Ma](https://horseee.github.io/)<sup>1</sup> , [Xingyi Yang](https://adamdad.github.io/)<sup>2</sup> , [Xinchao Wang](https://sites.google.com/site/sitexinchaowang/)<sup>1</sup>    
+> <sup>1</sup> [xML Lab](https://sites.google.com/view/xml-nus), National University of Singapore  
+> <sup>2</sup> The Hong Kong Polytechnic University
 
 ## 📚 Introduction
 **SparseD** is a novel sparse attention method for diffusion language models (DLMs), delivering near **lossless acceleration** in performance. It uses full attention and computes sparse patterns during early denoising steps, then reuses these patterns in later steps to restrict computation and improve efficiency. Extensive experiments show that SparseD greatly maintains accuracy on the evaluated benchmarks while achieving up to $1.50\times$ speedup at a 64k context length with 1,024 steps.
@@ -64,6 +64,18 @@ Arguments:
 
 - To better demonstrate the acceleration achieved by SparseD, we recommend evaluating it with long-context prompts, such as those with lengths of 16k, 32k, and 64k. We also provide short context for simple evaluation.
 
-
 ## 🤓 Acknowledgments
 Our sparse attention is accelerated by [FlexAttention](https://arxiv.org/abs/2412.05496), and implemented on [Dream](https://github.com/DreamLM/Dream) and [LLaDA](https://github.com/ML-GSAI/LLaDA). We extend our gratitude to the community for their valuable contributions!
+
+## 🔗 Citation
+```
+@misc{wang2025sparsedsparseattentiondiffusion,
+      title={SparseD: Sparse Attention for Diffusion Language Models}, 
+      author={Zeqing Wang and Gongfan Fang and Xinyin Ma and Xingyi Yang and Xinchao Wang},
+      year={2025},
+      eprint={2509.24014},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2509.24014}, 
+}
+```
