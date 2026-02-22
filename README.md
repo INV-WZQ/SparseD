@@ -69,13 +69,12 @@ Our sparse attention is accelerated by [FlexAttention](https://arxiv.org/abs/241
 
 ## 🔗 Citation
 ```
-@misc{wang2025sparsedsparseattentiondiffusion,
-      title={SparseD: Sparse Attention for Diffusion Language Models}, 
-      author={Zeqing Wang and Gongfan Fang and Xinyin Ma and Xingyi Yang and Xinchao Wang},
-      year={2025},
-      eprint={2509.24014},
-      archivePrefix={arXiv},
-      primaryClass={cs.CL},
-      url={https://arxiv.org/abs/2509.24014}, 
+@inproceedings{
+  wang2026sparsed,
+  title={SparseD: Sparse Attention for Diffusion Language Models},
+  author={Zeqing Wang and Gongfan Fang and Xinyin Ma and Xingyi Yang and Xinchao Wang},
+  booktitle={The Fourteenth International Conference on Learning Representations},
+  year={2026},
+  url={https://openreview.net/forum?id=dwbrZtYP04}
 }
 ```
